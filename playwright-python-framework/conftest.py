@@ -1,15 +1,18 @@
 import pytest
-from playwright.sync_api import sync_playwright
+from utils.browser_factory import BrowserFactory
+
 
 @pytest.fixture(scope="function")
 def page():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
-        context = browser.new_context()
-        page = context.new_page()
-        page.goto("https://automationexercise.com/")
-        
-        yield page
-        
-        context.close()
-        browser.close()
+
+    factory = BrowserFactory()
+
+    browser = factory.create_browser()
+
+    context = factory.create_context(browser)
+
+    page = context.new_page()
+
+    yield page
+
+    factory.close(browser, context)

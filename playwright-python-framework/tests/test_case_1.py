@@ -4,8 +4,8 @@ from pages.signup_page import SignupPage
 
 def test_case_1(page):
     
-    NAME = "Arpit"
-    EMAIL = "arpit12@gmail.com"
+    NAME = "Arpita"
+    EMAIL = f"arpita{__import__('uuid').uuid4().hex[:6]}@gmail.com"
     PASSWORD = "AaBb123@123SaaS"
     DAY = "6"
     MONTH = "11"
@@ -17,11 +17,14 @@ def test_case_1(page):
     ADDRESS_2 = "India"
     COUNTRY = "India"
     STATE = "HR"
+    CITY = "Gurgaon"
     ZIPCODE = "120001"
     MOBILE_NUMBER = "9000000001"
     
     home_page = HomePage(page)  
     signup_page = SignupPage(page) 
+    
+    home_page.navigate("https://automationexercise.com/")
     
     expect(home_page.home_page_element).to_be_visible()
     home_page.click_singup_page()
@@ -47,12 +50,13 @@ def test_case_1(page):
     signup_page.enter_address_2(ADDRESS_2)
     signup_page.select_country(COUNTRY)
     signup_page.select_state(STATE)
+    signup_page.enter_city(CITY)
     signup_page.enter_zip_code(ZIPCODE)
     signup_page.enter_mobile_number(MOBILE_NUMBER)
     signup_page.click_create_account()
     expect(signup_page.signup_heading_4).to_have_text("Account Created!")
     signup_page.click_continue()
-    expect(signup_page.username_visible).to_have_text("Arpit")
+    expect(signup_page.username_visible).to_have_text("Arpita")
     signup_page.click_delete()
     expect(signup_page.signup_heading_5).to_have_text("Account Deleted!")
     signup_page.click_continue()

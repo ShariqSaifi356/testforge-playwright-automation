@@ -25,12 +25,13 @@ class SignupPage(BasePage):
          self.address_2 = page.locator("//input[@id='address2']")
          self.country = page.get_by_role("combobox", name="Country *")
          self.state = page.get_by_role("textbox", name="State *")
+         self.city = page.get_by_role("textbox", name="City *")
          self.zipcode = page.locator("//input[@id='zipcode']")
          self.mobile_number = page.get_by_role("textbox", name="Mobile Number *")
          self.create_account_button = page.get_by_role("button", name="Create Account")
          self.signup_heading_4 = page.locator("//b[normalize-space()='Account Created!']")
          self.continue_button = page.get_by_role("link", name="Continue")
-         self.username_visible = page.get_by_text("Rohan", exact=True)
+         self.username_visible = page.get_by_text("Arpita", exact=True)
          self.delete_button = page.get_by_role("link", name="Delete Account")
          self.signup_heading_5 = page.locator("//b[normalize-space()='Account Deleted!']")
     
@@ -84,6 +85,9 @@ class SignupPage(BasePage):
         
     def select_state(self, state):
         self.fill(self.state, state)
+        
+    def enter_city(self, city):
+        self.fill(self.city, city)
         
     def enter_zip_code(self, zipCode):
         self.fill(self.zipcode, zipCode)
