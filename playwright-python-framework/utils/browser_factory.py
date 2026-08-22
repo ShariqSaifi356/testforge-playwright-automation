@@ -6,10 +6,15 @@ class BrowserFactory:
     def __init__(self):
         self.playwright = sync_playwright().start()
 
-    def create_browser(self):
-        return self.playwright.chromium.launch(
-            headless=False
-        )
+    def create_browser(self, browser_name):
+        if browser_name == "chromium":
+            return self.playwright.chromium.launch(headless=False)
+
+        elif browser_name == "firefox":
+            return self.playwright.firefox.launch(headless=False)
+
+        elif browser_name == "webkit":
+            return self.playwright.webkit.launch(headless=False)
 
     def create_context(self, browser):
         context = browser.new_context()
