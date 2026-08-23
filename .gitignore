@@ -219,3 +219,9 @@ __marimo__/
 
 # Project Documentation
 DETAILED_CODE_EXPLANATION.md
+
+# Playwright screenshots, traces, and videos
+/playwright-python-framework/screenshots/
+
+# Logs
+/playwright-python-framework/logs/

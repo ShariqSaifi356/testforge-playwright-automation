@@ -1,4 +1,10 @@
+from pathlib import Path
+
 from playwright.sync_api import sync_playwright
+
+
+FRAMEWORK_DIR = Path(__file__).resolve().parent.parent
+VIDEO_DIR = FRAMEWORK_DIR / "screenshots" / "videos"
 
 
 class BrowserFactory:
@@ -17,7 +23,12 @@ class BrowserFactory:
             return self.playwright.webkit.launch(headless=False)
 
     def create_context(self, browser):
-        context = browser.new_context()
+        VIDEO_DIR.mkdir(parents=True, exist_ok=True)
+        context = browser.new_context(
+            viewport={"width": 1920, "height": 1080},
+            record_video_dir=str(VIDEO_DIR),
+            record_video_size={"width": 1920, "height": 1080}
+        )
         context.route("**/*", self.block_ads)
         return context
 

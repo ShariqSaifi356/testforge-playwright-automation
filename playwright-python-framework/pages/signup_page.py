@@ -2,8 +2,8 @@ from pages.base_page import BasePage
 
 class SignupPage(BasePage):
     
-    def __init__(self, page):
-         super().__init__(page)
+    def __init__(self, page, logger):
+         super().__init__(page, logger)
          
          self.signup_heading = page.get_by_role("heading", name="New User Signup!", exact=True)
          self.name = page.get_by_role("textbox", name="Name")

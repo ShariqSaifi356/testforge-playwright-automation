@@ -2,7 +2,7 @@ from playwright.sync_api import expect
 from pages.home_page import HomePage
 from pages.signup_page import SignupPage
 
-def test_case_1(page):
+def test_case_1(page, logger):
     
     NAME = "Arpita"
     EMAIL = f"arpita{__import__('uuid').uuid4().hex[:6]}@gmail.com"
@@ -21,19 +21,22 @@ def test_case_1(page):
     ZIPCODE = "120001"
     MOBILE_NUMBER = "9000000001"
     
-    home_page = HomePage(page)  
-    signup_page = SignupPage(page) 
+    home_page = HomePage(page, logger)  
+    signup_page = SignupPage(page, logger) 
     
     home_page.navigate("https://automationexercise.com/")
     
+    logger.info("Verifying home page")
     expect(home_page.home_page_element).to_be_visible()
     home_page.click_singup_page()
     
+    logger.info("Verifying 'New User Signup!' heading")
     expect(signup_page.signup_heading).to_have_text("New User Signup!")
     signup_page.enter_name(NAME)
     signup_page.enter_email(EMAIL)
     signup_page.click_signup_button()
     
+    logger.info("Verifying 'Enter Account Information' heading")
     expect(signup_page.signup_heading_2).to_have_text("Enter Account Information")    
     signup_page.select_title()
     signup_page.enter_password(PASSWORD)
@@ -42,6 +45,7 @@ def test_case_1(page):
     signup_page.select_year(YEAR)
     signup_page.select_newsletter()
     signup_page.select_specialoffers()
+    logger.info("Verifying 'Address Information' heading")
     expect(signup_page.signup_heading_3).to_have_text("Address Information")
     signup_page.enter_first_name(FIRST_NAME)
     signup_page.enter_last_name(LAST_NAME)
@@ -54,9 +58,12 @@ def test_case_1(page):
     signup_page.enter_zip_code(ZIPCODE)
     signup_page.enter_mobile_number(MOBILE_NUMBER)
     signup_page.click_create_account()
+    logger.info("Verifying 'Account Created!' heading")
     expect(signup_page.signup_heading_4).to_have_text("Account Created!")
     signup_page.click_continue()
+    logger.info("Verifying 'Arpita' text")
     expect(signup_page.username_visible).to_have_text("Arpita")
     signup_page.click_delete()
+    logger.info("Verifying 'Account Deleted!' heading")
     expect(signup_page.signup_heading_5).to_have_text("Account Deleted!")
     signup_page.click_continue()
