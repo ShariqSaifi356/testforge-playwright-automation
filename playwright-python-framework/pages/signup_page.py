@@ -78,7 +78,7 @@ class SignupPage(BasePage):
         self.fill(self.address, address)
         
     def enter_address_2(self, address):
-        self.fill(self.address, address)
+        self.fill(self.address_2, address)
         
     def select_country(self, value):
         self.select(self.country, value)
