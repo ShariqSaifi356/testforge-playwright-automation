@@ -14,22 +14,20 @@ SCREENSHOT_DIR = FRAMEWORK_DIR / "screenshots" / "traces"
 # Command line browser option
 # ---------------------------------------------------------
 
-def _get_cli_value(flag_name, default=None):
-    for index, arg in enumerate(sys.argv[1:]):
-        if arg == f"--{flag_name}":
-            return True if default is None else sys.argv[index + 2]
-        if arg.startswith(f"--{flag_name}="):
-            return arg.split("=", 1)[1]
-    return default
-
 def pytest_addoption(parser):
     parser.addoption(
         "--browser_name",
-        action="store",
-        default="chromium",
+        action="append",
+        default=None,
         choices=["chromium", "firefox", "webkit"],
         help="Browser to run tests on. Pass multiple times for cross-browser run, e.g. --browser_name=chromium --browser_name=firefox"
-    )    
+    )
+
+
+def pytest_generate_tests(metafunc):
+    if "page" in metafunc.fixturenames:
+        browsers = metafunc.config.getoption("--browser_name") or ["chromium"]
+        metafunc.parametrize("page", browsers, indirect=True, ids=browsers)
     
 # For Screenshot 
 @pytest.hookimpl(hookwrapper=True)
@@ -58,7 +56,7 @@ def logger(request):
 @pytest.fixture(scope="function")
 def page(request):
 
-    browser_name = request.config.getoption("--browser_name")
+    browser_name = request.param
     factory = BrowserFactory()
     browser = factory.create_browser(browser_name)
     context = factory.create_context(browser)
