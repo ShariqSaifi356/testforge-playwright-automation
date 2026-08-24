@@ -225,3 +225,6 @@ DETAILED_CODE_EXPLANATION.md
 
 # Logs
 /playwright-python-framework/logs/
+
+# Palaywright MCP Server Logs
+.playwright-mcp/
