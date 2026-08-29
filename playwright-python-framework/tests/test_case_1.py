@@ -58,12 +58,15 @@ def test_case_1(page, logger):
     signup_page.enter_zip_code(ZIPCODE)
     signup_page.enter_mobile_number(MOBILE_NUMBER)
     signup_page.click_create_account()
+    
     logger.info("Verifying 'Account Created!' heading")
     expect(signup_page.signup_heading_4).to_have_text("Account Created!")
     signup_page.click_continue()
+    
     logger.info("Verifying 'Arpita' text")
     expect(signup_page.username_visible).to_have_text("Arpita")
     signup_page.click_delete()
+    
     logger.info("Verifying 'Account Deleted!' heading")
     expect(signup_page.signup_heading_5).to_have_text("Account Deleted!")
     signup_page.click_continue()
