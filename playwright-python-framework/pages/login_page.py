@@ -10,6 +10,7 @@ class LoginPage(BasePage):
         self.password = page.get_by_placeholder("Password")
         self.login_button = page.get_by_role("button", name="Login")
         self.username_visible = page.get_by_text("Arpita", exact=True)
+        self.worng_email_password_message = page.get_by_text("Your email or password is incorrect!")
         
     def enter_login_email(self, email:str):
         self.fill(self.email, email)
