@@ -6,6 +6,8 @@ class SignupPage(BasePage):
          super().__init__(page, logger)
          
          self.signup_heading = page.get_by_role("heading", name="New User Signup!", exact=True)
+         self.signup_email = page.locator("[data-qa='signup-email']")
+         self.existing_email_message = page.get_by_text("Email Address already exist!", exact=True)
          self.name = page.get_by_role("textbox", name="Name")
          self.email = page.get_by_role("textbox", name="Email Address").nth(1)
          self.signup_button = page.get_by_role("button", name="Signup", exact=True)
@@ -37,6 +39,9 @@ class SignupPage(BasePage):
     
     def enter_name(self, name:str):
         self.fill(self.name, name)
+
+    def enter_signup_email(self, email:str):
+        self.fill(self.signup_email, email)
         
     def enter_email(self, email:str):
         self.fill(self.email, email)

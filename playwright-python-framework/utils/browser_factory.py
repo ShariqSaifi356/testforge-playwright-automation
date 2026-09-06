@@ -14,13 +14,13 @@ class BrowserFactory:
 
     def create_browser(self, browser_name):
         if browser_name == "chromium":
-            return self.playwright.chromium.launch(headless=False)
+            return self.playwright.chromium.launch(headless=True)
 
         elif browser_name == "firefox":
-            return self.playwright.firefox.launch(headless=False)
+            return self.playwright.firefox.launch(headless=True)
 
         elif browser_name == "webkit":
-            return self.playwright.webkit.launch(headless=False)
+            return self.playwright.webkit.launch(headless=True)
 
     def create_context(self, browser):
         VIDEO_DIR.mkdir(parents=True, exist_ok=True)

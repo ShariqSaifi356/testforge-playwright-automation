@@ -10,6 +10,8 @@ class LoginPage(BasePage):
         self.password = page.get_by_placeholder("Password")
         self.login_button = page.get_by_role("button", name="Login")
         self.username_visible = page.get_by_text("Arpita", exact=True)
+        self.logged_in_username = page.get_by_text("Logged in as Arpita")
+        self.logout_button = page.get_by_role("banner").get_by_role("link", name="Logout")
         self.worng_email_password_message = page.get_by_text("Your email or password is incorrect!")
         
     def enter_login_email(self, email:str):
@@ -19,4 +21,7 @@ class LoginPage(BasePage):
         self.fill(self.password, password)   
         
     def click_login_button(self):
-        self.click(self.login_button)         
+        self.click(self.login_button)
+
+    def click_logout_button(self):
+        self.click(self.logout_button)
