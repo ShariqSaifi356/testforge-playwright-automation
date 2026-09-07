@@ -28,3 +28,36 @@ class ProductsPage(BasePage):
     def click_search_button(self):
         self.wait_for_page_load()
         self.click(self.search_button)
+
+    def product_card(self, index:int):
+        return self.product_cards.nth(index)
+
+    def product_name(self, index:int):
+        return self.product_card(index).locator(".productinfo p")
+
+    def product_price(self, index:int):
+        return self.product_card(index).locator(".productinfo").get_by_role("heading", level=2)
+
+    def add_to_cart_button(self, index:int):
+        return self.product_card(index).locator(".product-overlay").get_by_text("Add to cart", exact=True)
+
+    @property
+    def continue_shopping_button(self):
+        return self.page.get_by_role("button", name="Continue Shopping", exact=True)
+
+    @property
+    def view_cart_link(self):
+        return self.page.get_by_role("link", name="View Cart", exact=True)
+
+    def hover_product(self, index:int):
+        self.wait_for_page_load()
+        self.hover(self.product_card(index))
+
+    def click_add_to_cart(self, index:int):
+        self.click(self.add_to_cart_button(index))
+
+    def click_continue_shopping(self):
+        self.click(self.continue_shopping_button)
+
+    def click_view_cart(self):
+        self.click(self.view_cart_link)

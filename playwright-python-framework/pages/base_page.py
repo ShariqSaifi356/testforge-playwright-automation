@@ -45,3 +45,7 @@ class BasePage:
     def wait_for_page_load(self):
         self.logger.info("Waiting for page scripts and resources to load")
         self.page.wait_for_load_state("load")
+
+    def hover(self, locator:Locator):
+        self.logger.info("Hovering over element")
+        locator.hover()

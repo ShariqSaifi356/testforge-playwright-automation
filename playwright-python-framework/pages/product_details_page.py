@@ -14,3 +14,18 @@ class ProductDetailsPage(BasePage):
         self.availability = self.product_details.locator("p").filter(has_text=re.compile(r"^Availability:\s*\S"))
         self.condition = self.product_details.locator("p").filter(has_text=re.compile(r"^Condition:\s*\S"))
         self.brand = self.product_details.locator("p").filter(has_text=re.compile(r"^Brand:\s*\S"))
+
+    @property
+    def quantity(self):
+        return self.product_details.locator("input[name='quantity']")
+
+    @property
+    def add_to_cart_button(self):
+        return self.product_details.get_by_role("button", name="Add to cart")
+
+    def enter_quantity(self, quantity:str):
+        self.fill(self.quantity, quantity)
+
+    def click_add_to_cart(self):
+        self.wait_for_page_load()
+        self.click(self.add_to_cart_button)

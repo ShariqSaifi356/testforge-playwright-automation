@@ -41,3 +41,10 @@ class HomePage(BasePage):
     def click_subscribe(self):
         self.wait_for_page_load()
         self.click(self.subscribe_button)
+
+    @property
+    def cart_link(self):
+        return self.header.get_by_role("link", name="Cart")
+
+    def click_cart(self):
+        self.click(self.cart_link)
